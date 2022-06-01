@@ -65,7 +65,7 @@ export const Button = styled.nav`
   }
 `;
 
-export const Form = styled.form`
+export const SearchBar = styled.form`
     postition: absolute;
     padding-right: 30px;
     z-index: 100;

@@ -1,41 +1,39 @@
-import React from 'react'
-import {
-    Nav,
-    NavLink,
-    Bars,
-    NavMenu,
-    Form,
-    Button
-  } from './Navbars';
 
-const Navbar = () => {
-  return (
-   <>
-    <Nav>
-        <NavLink to="/home">
+import { NavLink } from 'react-router-dom';
+import './navbar.css';
+
+const links = {
+    'Popular': '/popular',
+    'Categories': '/categories',
+    'All': '/all',
+    'Sign Up': '/signup',
+};
+
+export default function Navbar() {
+    const Links = Object.entries(links).map(([title, link]) => {
+        return <NavBtn {...{ link }} key={link}>
+            {title}
+        </NavBtn>
+    });
+    return <div id="navbar">
+        <NavBtn className='homelink' link={'/'}>
             <h1>MovieTime</h1>
-        </NavLink>
-        <Bars />
-        <NavMenu>
-            <NavLink to="/popular" activeStyle>
-                Popular
-            </NavLink>
-            <NavLink to="/categories" activeStyle>
-                Categories
-            </NavLink>
-            <NavLink to="/all" activeStyle>
-                All movies
-            </NavLink>
-            <NavLink to="/signup" activeStyle>
-                Sign Up
-            </NavLink>
-        </NavMenu>
-        <Form className='d-flex'>
-            <Form.Control type="text" placeholder="Search" />
-            <Button variant="outline-success">Search</Button>
-        </Form>
-    </Nav>
-   </>
-  );
+        </NavBtn>
+        <SearchBar />
+        <div className={'navlinks'}>
+            {Links}
+        </div>
+    </div>
 }
-export default Navbar;
+
+function NavBtn({ children, link, className = '' }) {
+    return <NavLink className={['navbtn', className].join(' ')} to={link} activeStyle>
+        <button>
+            {children}
+        </button>
+    </NavLink>
+}
+
+function SearchBar() {
+    return <input className='searchbar' type={'text'} placeholder={'Search'} />
+}
